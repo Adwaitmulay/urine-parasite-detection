@@ -6,7 +6,8 @@ from flask import Flask, jsonify, render_template, request
 from PIL import Image
 import inference
 
-app = Flask(__name__)
+HERE = os.path.dirname(os.path.abspath(__file__))
+app = Flask(__name__, template_folder=HERE)   # templates live next to app.py (flat repo layout)
 app.config["MAX_CONTENT_LENGTH"] = 8 * 1024 * 1024   # 8 MB upload limit
 ALLOWED = {"png", "jpg", "jpeg", "jfif", "bmp", "tif", "tiff", "webp"}
 

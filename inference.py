@@ -1,18 +1,25 @@
 """Image classifiers (parasite + urine microscopy). Models are PyTorch MobileNetV2 checkpoints in models/."""
 import os
-_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
+_HERE = os.path.dirname(os.path.abspath(__file__))
+
+def _path(name):
+    """model file: next to app.py, or in a models/ folder"""
+    for d in (_HERE, os.path.join(_HERE, "models")):
+        p = os.path.join(d, f"{name}_model.pt")
+        if os.path.exists(p): return p
+    return None
 _cache = {}
 
 class ModelMissing(Exception):
     pass
 
 def model_available(name):
-    return os.path.exists(os.path.join(_DIR, f"{name}_model.pt"))
+    return _path(name) is not None
 
 def _load(name):
     if name not in _cache:
-        path = os.path.join(_DIR, f"{name}_model.pt")
-        if not os.path.exists(path):
+        path = _path(name)
+        if not path:
             raise ModelMissing(f"The {name} model is not installed yet.")
         import torch, torch.nn as nn
         from torchvision.models import mobilenet_v2
