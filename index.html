@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block body %}
+<main class="container my-4" style="max-width:900px">
+<div class="hero p-5 mb-4"><h1 class="fw-bold">AI-assisted lab screening</h1>
+<p class="lead mb-0">Two quick tools: detect malaria parasites in blood-smear cell images, and screen urinalysis results for urinary tract infection.</p></div>
+<div class="row g-4">
+<div class="col-md-6"><a class="cardlink" href="/parasite"><div class="card shadow-sm h-100"><div class="card-body">
+<h4>Parasite detection</h4><p class="text-muted mb-2">Upload a stained blood-smear cell image. Classifies Parasitized vs Uninfected.</p>
+<span class="badge text-bg-success">97.4% test accuracy</span></div></div></a></div>
+<div class="col-md-6"><a class="cardlink" href="/urine"><div class="card shadow-sm h-100"><div class="card-body">
+<h4>Urine analysis</h4><p class="text-muted mb-2">Upload a urine sediment microscopy image to identify particles (cells, bacteria, crystals...).</p>
+{% if urine_ready %}<span class="badge text-bg-success">Model ready</span>{% else %}<span class="badge text-bg-secondary">Model coming soon</span>{% endif %}</div></div></a></div></div></main>{% endblock %}
